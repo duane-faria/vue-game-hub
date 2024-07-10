@@ -18,7 +18,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: 2;
+  grid-template-rows: 1fr 1fr;
 }
 
 /* header */
@@ -48,5 +48,14 @@
 .container main {
   grid-column: 2;
   grid-row: 2;
+}
+
+@media screen and (max-width: 760px) {
+  .container main {
+    grid-column: 1 / 3;
+  }
+  .container aside {
+    display: none;
+  }
 }
 </style>
