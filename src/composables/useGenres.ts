@@ -1,8 +1,5 @@
-// import { ref } from 'vue';
+import useData from './useData'
 
-// import axios from '@/config/axios';
-
-// export default function useGenres(){
-// axios.get()
-
-// }
+export default function useGenres() {
+  return useData('/genres')
+}

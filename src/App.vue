@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import useGenres from './composables/useGenres'
+import get from 'lodash.get'
+
 // import Header from '@/components/header/Header.vue'
+const { loading, error, data } = useGenres()
 </script>
 
 <template>
@@ -8,7 +12,14 @@
       <input placeholder="search games" />
     </header>
 
-    <aside>Genres</aside>
+    <aside>
+      <h3>Genres</h3>
+      <ul v-if="get(data, 'results.length')">
+        <li v-for="item in data!.results" :key="item.id">
+          {{ item.name }}
+        </li>
+      </ul>
+    </aside>
 
     <main>main</main>
   </section>

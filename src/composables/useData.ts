@@ -2,23 +2,21 @@ import { onMounted, ref } from 'vue'
 
 import axios from '@/config/axios'
 
-export default async function useData(endpoint: string) {
+export default function useData(endpoint: string) {
   const loading = ref(false)
-  const data = ref(null)
+  const data = ref<null | {
+    results: any[]
+  }>(null)
   const error = ref<null | unknown>(null)
 
   onMounted(async () => {
-    try {
-      loading.value = true
+    loading.value = true
 
-      const { data: axiosData } = await axios.get(endpoint)
-
-      data.value = axiosData
-    } catch (e: unknown) {
-      error.value = e
-    } finally {
-      loading.value = false
-    }
+    axios
+      .get(endpoint)
+      .then(({ data: axiosData }) => (data.value = axiosData))
+      .catch((e) => (error.value = e.message))
+      .finally(() => (loading.value = false))
   })
 
   return {
